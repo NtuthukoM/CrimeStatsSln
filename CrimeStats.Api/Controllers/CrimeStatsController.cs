@@ -15,12 +15,23 @@ namespace CrimeStats.Api.Controllers
             this.statReader = statReader;
         }
         [HttpGet(Name = "GetCrimeStats")]
-        public async Task<IEnumerable<CrimeStat>> Get(string? category = null)
+        public async Task<IActionResult> Get(string? category = null)
         {
-            if(string.IsNullOrEmpty(category))
-           return await statReader.ReadCrimeStatsAsync();
+            if (string.IsNullOrEmpty(category))
+            {
+                var response = await statReader.ReadCrimeStatsAsync();
+                return Ok(response);
+            }
             else
-            return await statReader.ReadCrimeStatsAsync(category);
+            {
+                var validCategories = await statReader.ReadCrimeStatCategoriesAsync();
+                if (!validCategories.Contains(category))
+                {
+                    return BadRequest($"Invalid category '{category}'. Valid categories are: {string.Join(", ", validCategories)}");
+                }
+                var response = await statReader.ReadCrimeStatsAsync(category);
+                return Ok(response);
+            }
         }
     }
 }

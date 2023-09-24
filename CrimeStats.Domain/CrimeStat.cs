@@ -4,8 +4,13 @@ namespace CrimeStats.Domain
 {
     public class CrimeStat
     {
-        public string Catergory { get; set; }
-        public string SubCategory { get; set; }
+        public int RsaPosition { get; set; }
+        public int ProvPosition { get; set; }
+        public string? Station { get; set; }
+        public string? District { get; set; }
+        public string? Province { get; set; }
+        public string? Catergory { get; set; }
+        public string? SubCategory { get; set; }
         public List<CrimeStatPreiod> CrimeStatPreiods { get; set; }
         public int CountDiff { get 
             {

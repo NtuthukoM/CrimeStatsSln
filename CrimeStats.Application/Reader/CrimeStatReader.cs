@@ -58,6 +58,36 @@ namespace CrimeStats.Application.Reader
             return periods;
         }
 
+        private List<CrimeStatPreiod> ReadDetailPeriods(string sheetName, int row)
+        {
+            var headings = new Dictionary<int, string>()
+            {
+                {0, "H13" },
+                {1,"I13" },
+                {2, "J13" },
+                {3, "K13" },
+                {4, "L13" }
+            };
+            var periods = new List<CrimeStatPreiod>();
+            foreach (var heading in headings)
+            {
+                string periodStr = GetCellValue(fileName, sheetName, heading.Value);
+                periodStr = periodStr.Substring(periodStr.LastIndexOf("$") + 2);
+                var values = periodStr.Split("to");
+                var period = new CrimeStatPreiod()
+                {
+                    Order = heading.Key,
+                    Year = int.Parse(values[0].Split(" ")[1]),
+                    MonthFrom = values[0].Split(" ")[0].Trim(),
+                    MonthTo = values[1].Split(" ")[1].Trim(),
+                };
+                string strPeriodValue = GetCellValue(fileName, sheetName, $"{heading.Value.Replace("13", "")}{row}");
+                period.Value = int.Parse(strPeriodValue.Substring(strPeriodValue.LastIndexOf(")") + 1));
+                periods.Add(period);
+            }
+            return periods;
+        }
+
 
         // Retrieve the value of a cell, given a file name, sheet name, 
         // and address name.
@@ -149,7 +179,31 @@ namespace CrimeStats.Application.Reader
 
         public Task<List<CrimeStat>> ReadCrimeStatsAsync(string category)
         {
-            throw new NotImplementedException();
+            List<CrimeStat> crimeStats = new List<CrimeStat>();
+            int subCategroryRow = 15;
+            for (int i = 0; i < 30; i++)
+            {
+                var crimeStat = new CrimeStat();
+                crimeStat.Catergory = category;
+                crimeStat.SubCategory = GetCellValue(fileName, category, $"A10");
+                crimeStat.SubCategory = crimeStat.SubCategory.Substring(crimeStat.SubCategory.LastIndexOf(")") + 1);
+                string strRsaPosition = GetCellValue(fileName, category, $"C{subCategroryRow}");
+                crimeStat.RsaPosition = int.Parse(strRsaPosition);
+                string strProvPosition = GetCellValue(fileName, category, $"D{subCategroryRow}");
+                strProvPosition = strProvPosition.Substring(strProvPosition.LastIndexOf(")") + 1);
+                crimeStat.ProvPosition = int.Parse(strProvPosition);
+                string strStation = GetCellValue(fileName, category, $"E{subCategroryRow}");
+                crimeStat.Station = strStation.Substring(strStation.LastIndexOf(")") + 1);
+                string strDistrict = GetCellValue(fileName, category, $"F{subCategroryRow}");
+                crimeStat.District = strDistrict.Substring(strDistrict.LastIndexOf(")") + 1);
+                string strProvince = GetCellValue(fileName, category, $"G{subCategroryRow}");
+                crimeStat.Province = strProvince.Substring(strProvince.LastIndexOf(")") + 1);
+                List<CrimeStatPreiod> periods = ReadDetailPeriods(category, subCategroryRow);
+                crimeStat.CrimeStatPreiods = periods;
+                crimeStats.Add(crimeStat);
+                subCategroryRow++;
+            }
+            return Task.FromResult(crimeStats);
         }
 
         public Task<List<string>> ReadCrimeStatCategoriesAsync()
