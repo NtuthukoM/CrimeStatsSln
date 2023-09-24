@@ -9,8 +9,8 @@ namespace CrimeStats.Domain
     public class CrimeStatPreiod
     {
         public int Year { get; set; }
-        public int MonthFrom { get; set; }
-        public int MonthTo { get; set; }
+        public string MonthFrom { get; set; }
+        public string MonthTo { get; set; }
         public int Value { get; set; }
         public int Order { get; set; }
     }

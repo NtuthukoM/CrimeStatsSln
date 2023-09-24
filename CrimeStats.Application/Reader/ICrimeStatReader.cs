@@ -9,5 +9,6 @@ namespace CrimeStats.Application.Reader
     public interface ICrimeStatReader
     {
         Task<List<Domain.CrimeStat>> ReadCrimeStatsAsync();
+        Task<List<Domain.CrimeStat>> ReadCrimeStatsAsync(string category);
     }
 }

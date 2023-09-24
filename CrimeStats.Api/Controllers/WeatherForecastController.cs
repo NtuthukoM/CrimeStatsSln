@@ -1,3 +1,4 @@
+using CrimeStats.Application.Reader;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrimeStats.Api.Controllers
@@ -12,15 +13,18 @@ namespace CrimeStats.Api.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ICrimeStatReader statReader;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, ICrimeStatReader statReader)
         {
             _logger = logger;
+            this.statReader = statReader;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IEnumerable<WeatherForecast>> Get()
         {
+            await statReader.ReadCrimeStatsAsync();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
