@@ -15,9 +15,12 @@ namespace CrimeStats.Api.Controllers
             this.statReader = statReader;
         }
         [HttpGet(Name = "GetCrimeStats")]
-        public async Task<IEnumerable<CrimeStat>> Get()
+        public async Task<IEnumerable<CrimeStat>> Get(string? category = null)
         {
+            if(string.IsNullOrEmpty(category))
            return await statReader.ReadCrimeStatsAsync();
+            else
+            return await statReader.ReadCrimeStatsAsync(category);
         }
     }
 }

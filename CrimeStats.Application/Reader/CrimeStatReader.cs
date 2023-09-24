@@ -151,5 +151,26 @@ namespace CrimeStats.Application.Reader
         {
             throw new NotImplementedException();
         }
+
+        public Task<List<string>> ReadCrimeStatCategoriesAsync()
+        {
+            List<string> categories = new List<string>();
+            //return a list of the sheet names in the excel file:
+
+            using (SpreadsheetDocument document =
+                               SpreadsheetDocument.Open(fileName, false))
+            {
+                // Retrieve a reference to the workbook part.
+                WorkbookPart wbPart = document.WorkbookPart;
+                foreach(var sheet in wbPart.Workbook.Descendants<Sheet>())
+                {
+                    if(sheet.Name.ToString().Contains("TOP30"))
+                    {
+                        categories.Add(sheet.Name);
+                    }
+                }
+            }
+            return Task.FromResult(categories);            
+        }
     }
 }

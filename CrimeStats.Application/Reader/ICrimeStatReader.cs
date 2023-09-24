@@ -10,5 +10,6 @@ namespace CrimeStats.Application.Reader
     {
         Task<List<Domain.CrimeStat>> ReadCrimeStatsAsync();
         Task<List<Domain.CrimeStat>> ReadCrimeStatsAsync(string category);
+        Task<List<string>> ReadCrimeStatCategoriesAsync();
     }
 }
