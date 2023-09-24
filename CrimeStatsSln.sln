@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrimeStats.Api", "CrimeStats.Api\CrimeStats.Api.csproj", "{80A751EC-B2E3-4CCB-BA34-5891EE5A388D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrimeStats.Domain", "CrimeStats.Domain\CrimeStats.Domain.csproj", "{CCABB1E3-7D1F-4349-ACD3-C5F6DD19BB38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{80A751EC-B2E3-4CCB-BA34-5891EE5A388D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80A751EC-B2E3-4CCB-BA34-5891EE5A388D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80A751EC-B2E3-4CCB-BA34-5891EE5A388D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCABB1E3-7D1F-4349-ACD3-C5F6DD19BB38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCABB1E3-7D1F-4349-ACD3-C5F6DD19BB38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCABB1E3-7D1F-4349-ACD3-C5F6DD19BB38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCABB1E3-7D1F-4349-ACD3-C5F6DD19BB38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
