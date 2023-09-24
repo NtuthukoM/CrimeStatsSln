@@ -6,7 +6,7 @@ namespace CrimeStats.Application.Reader
 {
     public class CrimeStatReader : ICrimeStatReader
     {
-        private string fileName { get; set; } = @"C:\Users\ntuth\source\repos\CrimeStatsSln\CrimeStats.Api\Content\2023-2024-1st_Quarter_WEB.xlsx";
+        private string fileName { get; set; } = Constants.LocalFileName;
         
         public Task<List<CrimeStat>> ReadCrimeStatsAsync()
         {
